@@ -25,13 +25,14 @@ const Page2 = () =>{
         <Header2 title="Welcome User"/>  
     </div>
     <div className="ButtonsRow" style={rowstyle}>
-            <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "blue.500" doClickAction ={logout}/>
+            <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "red.900" doClickAction ={logout}/>
     </div>
     
-    <div>
+  
+    <div className="ButtonsRow" style={rowstyle}>
     <MyModal title = "Add new contact" modalContent={<ContactForm />} />
-    <MyModal title = "Show All Contacts" modalContent={<ContactForm />} />
-    <MyModal title = "Show My Contact"/>
+    <MyButton name = "Show all contacts"/>
+    <MyButton name = "Show my contacts"/>
     </div>
     <div className="tableAndMap">
     <div>
