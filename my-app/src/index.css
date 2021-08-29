@@ -1,0 +1,4 @@
+.tableAndMap{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,17 +1,20 @@
 import { Button } from "@chakra-ui/button"
-const MyButton = ({name, doClickAction}) => {
+const MyButton = (props) => {
     return (
-        <Button onClick={doClickAction}
-        bg={'blue.400'}
-        color={'white'}
+        <Button onClick={props.doClickAction}
+        bg={props.bgColor}
+        color={props.color}
         _hover={{
-          bg: 'blue.500',
+          bg: props.hoverColor
         }}>
-        {name}
+        {props.name}
       </Button>
     )
 }
-
-
+MyButton.defaultProps = {
+  color: "white",
+  bgColor: "blue.400",
+  hoverColor: "blue.500"
+}
 
 export default MyButton

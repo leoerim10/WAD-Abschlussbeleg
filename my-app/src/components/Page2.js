@@ -1,6 +1,9 @@
 import { useHistory } from "react-router"
 import MyButton from "./Button"
 import Header2 from "./Header"
+import MyModal from "./Modal"
+import ContactForm from "./ConactForm"
+import MyTable from "./MyTable"
 
 const Page2 = () =>{
 
@@ -10,23 +13,36 @@ const Page2 = () =>{
       history.push("/")
   
     }
+    const rowstyle = {
+      display:"flex",
+      flexDirection:"flex-end",
+      justifyContent: "flex-end"
+
+    };
     return(
         <div>
     <div>
-        <MyButton name="Log out" doClickAction ={logout}/>
-        <Header2 title="Welcome User"/>
+        <Header2 title="Welcome User"/>  
+    </div>
+    <div className="ButtonsRow" style={rowstyle}>
+            <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "blue.500" doClickAction ={logout}/>
     </div>
     
     <div>
-    <MyButton name="Add contacts" />
+    <MyModal title = "Add new contact" modalContent={<ContactForm />} />
+    <MyModal title = "Show All Contacts" modalContent={<ContactForm />} />
+    <MyModal title = "Show My Contact"/>
     </div>
-      	
+    <div className="tableAndMap">
     <div>
-      contact Information
-      Contact 1
-      Contact 2
-      Contact 3
+      <MyTable />
     </div>
+    <div className="Map">
+      <h2>Map comes here</h2>
+    </div>
+
+    </div>
+
 
     </div>
     
