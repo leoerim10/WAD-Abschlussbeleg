@@ -4,7 +4,7 @@ import Header2 from "./Header"
 import MyModal from "./Modal"
 import ContactForm from "./ConactForm"
 import MyTable from "./MyTable"
-import MyComponent from "./Map"
+import MyMap from "./Map"
 
 const Page2 = () =>{
 
@@ -36,13 +36,13 @@ const Page2 = () =>{
     <MyButton name = "Show my contacts"/>
     </div>
     <div className="tableAndMap">
-    <div>
-      <MyTable />
-    </div>
-    <div className="thisMap">
-      Here comes the map
-      <MyComponent />
-    </div>
+      <div className="myTable">
+        <MyTable />
+      </div>
+      <div className="thisMap">
+          <MyMap />
+      
+      </div>
 
     </div>
 

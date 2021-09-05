@@ -1,4 +1,32 @@
 .tableAndMap{
+    position: relative;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
+
+
+    @media only screen and (max-width: 800px) {
+  
+        #cell2 {
+          flex-direction: column;
+          position: static;
+          height: 100px;
+        }
 }
+}
+.myTable{
+    width:50%;
+    border:black 20px;
+
+}
+
+.leaflet-container {
+    height:100%;
+    width: 500px;
+    overflow: hidden;
+  }
+
+  .thisMap {
+      margin-left:10px;
+      border: 10px black;
+  }

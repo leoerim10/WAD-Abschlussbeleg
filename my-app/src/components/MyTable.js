@@ -8,7 +8,6 @@ import {
     Tr,
     Th,
     Td,
-    TableCaption,
   } from "@chakra-ui/react"
   import ContactForm from "./ConactForm"
 
@@ -49,6 +48,7 @@ import {
       <Td>{<MyButton name="Delete" />}</Td>
     </Tr>
   </Tbody>
+
   <Tfoot>
   </Tfoot>
 </Table>
