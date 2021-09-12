@@ -23,7 +23,9 @@ const Page2 = () =>{
     return(
         <div>
     <div>
-        <Header2 title="Welcome User"/>  
+        <Header2 title="Welcome User"
+        logoutbutton = {<MyButton />}
+        />  
     </div>
     <div className="ButtonsRow" style={rowstyle}>
             <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "red.900" doClickAction ={logout}/>

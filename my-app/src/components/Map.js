@@ -8,7 +8,7 @@ const position = [52.52, 13.405]
 const position2 = [52.521, 13.41]
 return(
 
-<MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+<MapContainer center={position} zoom={13} scrollWheelZoom={true}>
 <TileLayer
   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
