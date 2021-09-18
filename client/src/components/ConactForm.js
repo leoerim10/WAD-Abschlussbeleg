@@ -1,5 +1,5 @@
 
-import { FormControl, FormLabel, Input } from "@chakra-ui/react"
+import { FormControl, FormLabel, Input, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react"
 
 const ContactForm = (props) => {
 
@@ -33,6 +33,15 @@ return(
                 <FormLabel>Country</FormLabel>
                 <Input placeholder="Country" />
               </FormControl>
+
+              <Stack spacing={20} direction="row">
+              <Checkbox colorScheme="red" defaultIsChecked>
+                Admina
+              </Checkbox>
+              <Checkbox colorScheme="green" defaultIsChecked>
+                private
+              </Checkbox>
+              </Stack>
 
 </div>)
 }

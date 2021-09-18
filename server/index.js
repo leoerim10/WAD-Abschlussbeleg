@@ -1,29 +1,13 @@
-
 const express = require('express')
-const bodyParser  = require("body-parser")
-
-// const allimports = require('./models/Contact.js')
-// const contactSchema = allimports.ContactSchema
-
 const mongoose = require('mongoose')
 
+const contact = require("./models/Contact")
 
-const Contactschema = new mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    streetNumber: {
-        type: Number,
-        required: true,
-    },
-});
-
-
+const serverapp = express()
+serverapp.use(express.json())
+serverapp.listen(3001, function(){
+    console.log("Server listening at port 3001.......\n")
+})
 
 
 mongoose.connect('mongodb+srv://Sameer:Rordofthelings@crud.mgcsw.mongodb.net/contacts45?retryWrites=true&w=majority')
@@ -31,46 +15,15 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-const Contact = mongoose.model('Contact', Contactschema)
-
-Contact.create({ firstname: 'sameer', lastname: 'dhimal', streetNumber:2  }, function (err) {
+contact.create({ firstname: 'Max', lastname: 'Müller', street:"Berliner Straße", country: "Germany"  }, function (err) {
     if (err && err.name === 'ValidationError') {
         console.error(Object.values(err.errors).map(val => val.message))
       }
   })
 
-//const MyContactInstance = new MyContactModel()
-
-//MyContactInstance.name = "testName"
-
-
-//MyContactInstance.save(function(err){
-//    console.log("There was an error while saving.")
-///})
-
-
-
-
-
-
-
-
-
-
-
-// initialise mongodb
-
-const serverapp = express()
-serverapp.use(bodyParser.json())
-
-serverapp.listen(3001, function(){
-
-    console.log("Server listening at port 3001.......\n")
-})
-
 
 serverapp.get('/', function(req, res){
-    res.send("Resoponse from server!")
+    res.send("Resoponse from server.....")
 })
 
 /* serverapp.get('/contacts' ,function(req, res){
@@ -110,7 +63,7 @@ serverapp.get('/contacts' ,function(req, res){
 
 
 
-
+// frontend: onClick("localhost:3001/contacts")
 serverapp.put('/contacts', function(req, res){
     // sepcify how put
 
@@ -146,6 +99,3 @@ serverapp.delete('/contacts:userid', function(req, res){
     console.log("delete this")
     console.log(req.query.userid)
 })
-
-
-console.log("hello world.")

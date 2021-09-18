@@ -31,7 +31,6 @@ const Page2 = () =>{
             <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "red.900" doClickAction ={logout}/>
     </div>
     
-
     <div className="ButtonsRow" style={rowstyle}>
     <MyModal title = "Add new contact" modalContent={<ContactForm />} />
     <MyButton name = "Show all contacts"/>
