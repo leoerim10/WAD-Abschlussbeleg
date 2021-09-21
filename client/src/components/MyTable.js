@@ -1,5 +1,7 @@
 import MyButton from "./Button"
 import MyModal from "./MyModal"
+import React, {useState, useEffect} from 'react';
+import Axios from 'axios'
 import {
     Table,
     Thead,
@@ -11,6 +13,15 @@ import {
   } from "@chakra-ui/react"
 
   const MyTable = (props) => {
+
+    const [contactList, setContactList] = useState([])
+
+  useEffect (() =>{
+    Axios.get("http://localhost:3001/read").then((Response) => {
+      setContactList(Response.data)
+    })
+  }, [])
+
     return(
         <Table variant="striped" colorScheme="teal">
   <Thead>
@@ -23,29 +34,19 @@ import {
   </Thead>
   <Tbody>
     <Tr>
-      <Td>first name</Td>
-      <Td>Berliner Straße 5</Td>
-      <Td>{<MyModal title="Edit" />}</Td>
-      <Td>{<MyButton name="Delete" />}</Td>
+
+    {contactList.map((val, key) =>{
+            return <div>
+                    <Td>{val.firstname}</Td>
+                    <Td>{val.street}</Td>
+                    <Td>{<MyModal title="Edit" />}</Td>
+                    <Td>{<MyButton name="Delete" />}</Td>
+            </div>
+          })}
+      
+
     </Tr>
-    <Tr>
-      <Td>Andy Smith</Td>
-      <Td>Warschauer Straße 5</Td>
-      <Td>{<MyModal title="Edit"/>}</Td>
-      <Td>{<MyButton name="Delete" />}</Td>
-    </Tr>
-    <Tr>
-      <Td>Katja Peters</Td>
-      <Td>Brandenburgische Straße 107</Td>
-      <Td>{<MyModal title="Edit" />}</Td>
-      <Td>{<MyButton name="Delete" />}</Td>
-    </Tr>
-    <Tr>
-      <Td>Maximilina Wagner</Td>
-      <Td>Leopoldstraße 50</Td>
-      <Td>{<MyModal title="Edit" />}</Td>
-      <Td>{<MyButton name="Delete" />}</Td>
-    </Tr>
+    
   </Tbody>
 
   <Tfoot>

@@ -21,13 +21,13 @@ const MyModal = (props) => {
   const [city, setCity] = useState("")
   const [country, setCountry] = useState("")
 
-  const [contactList, setContactList] = useState([])
+  /* const [contactList, setContactList] = useState([])
 
   useEffect (() =>{
     Axios.get("http://localhost:3001/read").then((Response) => {
       setContactList(Response.data)
     })
-  }, [])
+  }, []) */
 
   const addContact = () => {
     Axios.post("http://localhost:3001/create", {
@@ -111,11 +111,6 @@ function InitialFocus() {
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
-
-          contact list:
-          {contactList.map((val, key) =>{
-            return <div> <h1>{val.firstname}</h1> <h1>{val.street}</h1></div>
-          })}
         </ModalContent>
       </Modal>
     </></>
