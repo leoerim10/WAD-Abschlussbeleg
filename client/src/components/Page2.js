@@ -32,7 +32,7 @@ const Page2 = () =>{
     </div>
     
     <div className="ButtonsRow" style={rowstyle}>
-    <MyModal title = "Add new contact" modalContent={<ContactForm />} />
+    <MyModal title ="Add new contact" modalContent={<ContactForm />} />
     <MyButton name = "Show all contacts"/>
     <MyButton name = "Show my contacts"/>
     </div>

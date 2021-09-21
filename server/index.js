@@ -15,7 +15,7 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-contact.create({ firstname: 'Max', lastname: 'Müller', street:"Berliner Straße", country: "Germany"  }, function (err) {
+contact.create({ firstname: 'Maxim', lastname: 'Mueller', street:"Berliner Straße", country: "Germany"  }, function (err) {
     if (err && err.name === 'ValidationError') {
         console.error(Object.values(err.errors).map(val => val.message))
       }
@@ -48,14 +48,14 @@ serverapp.get('/contacts' ,function(req, res){
     */
 
 
-    dummy_contact = {
+    /* dummy_contact = {
         "userid" : req.query.userid,
         "firstname" : "sameer",
         "lastname" : "dhimal",
         "age": "38"
     }
     res.send(dummy_contact)
-    console.log(req.query.userid + "name = " + req.query.username)
+    console.log(req.query.userid + "name = " + req.query.username) */
     //res.send("user id from uri: "+ req.query.userid)
 
 
@@ -76,17 +76,12 @@ serverapp.post('/contacts', function(req, res){
    // req.body contains the body (json formatted string) of the POST request.
    // these can be easily parsed using object.attribute format
 
-    firstname = req.body.firstname
-    lastname = req.body.lastname
-    streetno = req.body.streetNumber
-
-
     // after successful parse, add the object to the DB
-     Contact.create({ firstname: firstname, lastname: lastname, streetNumber:streetno  }, function (err) {
+    /*  Contact.create({ firstname: firstname, lastname: lastname, streetNumber:streetno  }, function (err) {
         if (err && err.name === 'ValidationError') {
             console.error(Object.values(err.errors).map(val => val.message))
           }
-      }) 
+      })  */
   // specify what post does
 
 })

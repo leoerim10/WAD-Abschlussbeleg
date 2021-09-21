@@ -11,6 +11,10 @@ import {
   import React from 'react';
   import ContactForm from "./ConactForm";
 
+  const saveContact = () => {
+    console.log("button is working")
+  }
+
   const MyModal = (props) => {
 
   function InitialFocus() {
@@ -38,7 +42,7 @@ import {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme="blue" mr={3}>
+              <Button colorScheme="blue" mr={3} onClick={saveContact}>
                 Save
               </Button>
               <Button onClick={onClose}>Cancel</Button>
