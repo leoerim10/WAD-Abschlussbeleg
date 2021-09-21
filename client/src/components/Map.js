@@ -6,6 +6,8 @@ const MyMap = (props) =>{
   
 const position = [52.52, 13.405]
 const position2 = [52.521, 13.41]
+const position3 = [52.523, 13.48]
+const position4 = [52.522, 13.45]
 return(
 
 <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
@@ -24,6 +26,17 @@ return(
   </Popup>
 </Marker>
 
+<Marker position={position3} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})} >
+  <Popup>
+    This is the third location
+  </Popup>
+</Marker>
+
+<Marker position={position4} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})} >
+  <Popup>
+    This is the fourth location
+  </Popup>
+</Marker>
 </MapContainer>
 )
 }

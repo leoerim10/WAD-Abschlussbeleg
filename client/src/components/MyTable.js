@@ -1,5 +1,5 @@
 import MyButton from "./Button"
-import MyModal from "./Modal"
+import MyModal from "./MyModal"
 import {
     Table,
     Thead,
@@ -9,7 +9,6 @@ import {
     Th,
     Td,
   } from "@chakra-ui/react"
-  import ContactForm from "./ConactForm"
 
   const MyTable = (props) => {
     return(
@@ -24,27 +23,27 @@ import {
   </Thead>
   <Tbody>
     <Tr>
-      <Td>Contact1</Td>
-      <Td>Address1</Td>
-      <Td>{<MyModal title="Edit" modalContent={<ContactForm />} />}</Td>
+      <Td>first name</Td>
+      <Td>Berliner Straße 5</Td>
+      <Td>{<MyModal title="Edit" />}</Td>
       <Td>{<MyButton name="Delete" />}</Td>
     </Tr>
     <Tr>
-      <Td>Contact2</Td>
-      <Td>Address2</Td>
-      <Td>{<MyModal title="Edit" modalContent={<ContactForm />} />}</Td>
+      <Td>Andy Smith</Td>
+      <Td>Warschauer Straße 5</Td>
+      <Td>{<MyModal title="Edit"/>}</Td>
       <Td>{<MyButton name="Delete" />}</Td>
     </Tr>
     <Tr>
-      <Td>Contact3</Td>
-      <Td>Address3</Td>
-      <Td>{<MyModal title="Edit" modalContent={<ContactForm />} />}</Td>
+      <Td>Katja Peters</Td>
+      <Td>Brandenburgische Straße 107</Td>
+      <Td>{<MyModal title="Edit" />}</Td>
       <Td>{<MyButton name="Delete" />}</Td>
     </Tr>
     <Tr>
-      <Td>Contact4</Td>
-      <Td>Address4</Td>
-      <Td>{<MyModal title="Edit" modalContent={<ContactForm />} />}</Td>
+      <Td>Maximilina Wagner</Td>
+      <Td>Leopoldstraße 50</Td>
+      <Td>{<MyModal title="Edit" />}</Td>
       <Td>{<MyButton name="Delete" />}</Td>
     </Tr>
   </Tbody>
