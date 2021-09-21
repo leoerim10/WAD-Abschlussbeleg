@@ -39,7 +39,10 @@ const MyModal = (props) => {
       city: city,
       country: country,
     } )
+
+    window.location.reload(false);
   }
+  
 
 function InitialFocus() {
   const { isOpen, onOpen, onClose } = useDisclosure()

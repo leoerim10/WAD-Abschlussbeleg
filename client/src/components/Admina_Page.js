@@ -6,7 +6,7 @@ import MyTable from "./MyTable"
 import MyMap from "./Map"
 import { ModalHeader } from "@chakra-ui/modal"
 
-const Page2 = () =>{
+const Admina_Page = () =>{
 
     const  history = useHistory()
     function logout(){
@@ -54,4 +54,4 @@ const Page2 = () =>{
     
     }
 
-    export default Page2
+    export default Admina_Page

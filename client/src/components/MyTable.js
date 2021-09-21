@@ -15,7 +15,7 @@ import {
   const MyTable = (props) => {
 
     const [contactList, setContactList] = useState([])
-
+   
   useEffect (() =>{
     Axios.get("http://localhost:3001/read").then((Response) => {
       setContactList(Response.data)
