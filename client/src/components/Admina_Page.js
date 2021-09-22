@@ -23,7 +23,7 @@ const Admina_Page = () =>{
     return(
         <div>
     <div>
-        <Header2 title="Welcome User"
+        <Header2 title="Welcome Admina"
         logoutbutton = {<MyButton />}
         />  
     </div>

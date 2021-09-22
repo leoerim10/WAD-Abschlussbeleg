@@ -26,18 +26,15 @@ import {
         <Table variant="striped" colorScheme="teal">
   <Thead>
     <Tr>
-      <Th>Name</Th>
-      <Th>Address</Th>
-      <Th>Edit</Th>
-      <Th>Delete</Th>
+      <Th>Contact list:</Th>
     </Tr>
   </Thead>
   <Tbody>
     <Tr>
 
     {contactList.map((val, key) =>{
-            return <div>
-                    <Td>{val.firstname}</Td>
+            return <div key={key}>
+                    <Td>{val.firstname + " " + val.lastname}</Td>
                     <Td>{val.street}</Td>
                     <Td>{<MyModal title="Edit" />}</Td>
                     <Td>{<MyButton name="Delete" />}</Td>
