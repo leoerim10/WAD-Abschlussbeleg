@@ -1,7 +1,6 @@
-import MyButton from "./Button"
-import MyModal from "./MyModal"
 import React, {useState, useEffect} from 'react';
 import Axios from 'axios'
+import UpdateContact from "./UpdateContact";
 import {
     Table,
     Thead,
@@ -10,6 +9,7 @@ import {
     Tr,
     Th,
     Td,
+    Button,
   } from "@chakra-ui/react"
 
   const MyTable = (props) => {
@@ -22,6 +22,12 @@ import {
     })
   }, [])
 
+
+  const deleteContact = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`)
+    window.location.reload(false)
+  }
+
     return(
         <Table variant="striped" colorScheme="teal">
   <Thead>
@@ -32,12 +38,17 @@ import {
   <Tbody>
     <Tr>
 
-    {contactList.map((val, key) =>{
-            return <div key={key}>
-                    <Td>{val.firstname + " " + val.lastname}</Td>
+    {contactList.map((val, index) =>{
+            return <div >
+                    <Td >{val.firstname + " " + val.lastname}</Td>
                     <Td>{val.street}</Td>
-                    <Td>{<MyModal title="Edit" />}</Td>
-                    <Td>{<MyButton name="Delete" />}</Td>
+                    <Td>{<UpdateContact title="Edit" id={val._id}/>}</Td>
+                    <Td>{val._id}</Td>
+                    <Td>{ <Button colorScheme="red" mr={3}  onClick={(e)=> deleteContact(val._id)} >
+                            Delete
+                      </Button>}</Td>
+                    <Td>Index = {index}</Td>
+                    
             </div>
           })}
       

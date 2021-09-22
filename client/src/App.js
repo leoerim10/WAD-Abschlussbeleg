@@ -11,21 +11,30 @@ import { useState } from "react";
 
 function App() {
   var authenticated = true
+
   return(
 
+
   <Switch>
+
+ 
     <Route exact path="/Admina_Page" component={
       Admina_Page
       } />
+
       {
+
         authenticated &&
       
        <Route exact path="/Normalo_Page" component={
             Normalo_Page
       } />
+
     }
 
     <Route path="/" component={Home}/>
+    
+  
 </Switch>
 )
 }

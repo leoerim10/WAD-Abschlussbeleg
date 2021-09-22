@@ -29,6 +29,7 @@
   }
 
   .thisMap {
+      height: 500px;
       margin-left:10px;
       border: 10px black;
   }

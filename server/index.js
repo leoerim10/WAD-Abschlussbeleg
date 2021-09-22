@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const contact = require("./models/Contact")
 const Contact = require('./models/Contact')
+const { update } = require('./models/Contact')
 
 const serverapp = express()
 serverapp.use(express.json())
@@ -24,25 +25,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
       }
   }) */
 
-
-serverapp.get('/', function(req, res){
-    res.send("Resoponse from server.....")
-})
-
-serverapp.get('/contacts' ,function(req, res){
-   
-})
-
-
-serverapp.put('/contacts', function(req, res){
-
-})
-
 serverapp.post('/create', function(req, res){
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const street = req.body.street
-    const housenumber = req.body.housenumber
     const postalcode = req.body.postalcode
     const city = req.body.city
     const country = req.body.country
@@ -54,7 +40,7 @@ serverapp.post('/create', function(req, res){
           }
       })  */
 
-     const contact = new Contact({firstname: firstname, lastname: lastname, street:street, housenumber:housenumber, postalcode:postalcode, city:city, country: country})
+     const contact = new Contact({firstname: firstname, lastname: lastname, street:street, postalcode:postalcode, city:city, country: country})
 
       try{
           contact.save();
@@ -73,7 +59,42 @@ serverapp.get('/read', function(req, res){
     } )
 
 })
-serverapp.delete('/contacts:userid', function(req, res){
-    console.log("delete this")
-    console.log(req.query.userid)
+
+
+
+serverapp.put('/update', function(req, res){
+    const id = req.body.id
+    const firstname = req.body.firstname
+    const lastname = req.body.lastname
+    const street = req.body.street
+    const postalcode = req.body.postalcode
+    const city = req.body.city
+    const country = req.body.country
+
+      try{
+          Contact.findById(id, (err, updatedContact)=> {
+              updatedContact.firstname = firstname
+              updatedContact.lastname = lastname
+              updatedContact.street = street
+              updatedContact.postalcode = postalcode
+              updatedContact.city = city
+              updatedContact.country = country
+
+              updatedContact.save();
+              res.send("update")
+         })
+          
+      }catch (err){
+          console.log(err)
+      } 
+})
+
+
+serverapp.delete('/delete/:id', function(req, res){
+    const id = req.params.id
+    res.send(id)
+
+    Contact.findByIdAndRemove(id).exec()
+    res.send("deleted")
+
 })

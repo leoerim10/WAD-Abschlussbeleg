@@ -4,6 +4,7 @@ import Header2 from "./Header"
 import MyModal from "./MyModal"
 import MyTable from "./MyTable"
 import MyMap from "./Map"
+import toLatLong from "./mapFunctions"
 import { ModalHeader } from "@chakra-ui/modal"
 
 const Admina_Page = () =>{
@@ -24,8 +25,10 @@ const Admina_Page = () =>{
         <div>
     <div>
         <Header2 title="Welcome Admina"
+        
         logoutbutton = {<MyButton />}
         />  
+        <p>{toLatLong("Franz-Mehring-Platz")}</p>
     </div>
     <div className="ButtonsRow" style={rowstyle}>
             <MyButton name="Log out" color= "white" bgColor="red.400" hoverColor= "red.900" doClickAction ={logout}/>
