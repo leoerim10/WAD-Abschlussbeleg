@@ -6,6 +6,8 @@ const contact = require("./models/Contact")
 const Contact = require('./models/Contact')
 const { update } = require('./models/Contact')
 
+
+
 const serverapp = express()
 serverapp.use(express.json())
 serverapp.use(cors())
@@ -29,9 +31,13 @@ serverapp.post('/create', function(req, res){
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const street = req.body.street
-    const postalcode = req.body.postalcode
+    const plz = req.body.plz
     const city = req.body.city
     const country = req.body.country
+    const owner = req.body.owner
+    const privacy = req.body.privacy
+    const long = req.body.long
+    const lat = req.body.lat
 
   /*   contact.create({ firstname: firstname, lastname: lastname, street:street, housenumber:housenumber, postalcode:postalcode, city:city, country: country}, 
         function (err) {
@@ -40,15 +46,19 @@ serverapp.post('/create', function(req, res){
           }
       })  */
 
-     const contact = new Contact({firstname: firstname, lastname: lastname, street:street, postalcode:postalcode, city:city, country: country})
+      
+    
+     const contact = new Contact({firstname: firstname , lastname: lastname , street:street, plz:plz, city:city, country: country, owner:owner, privacy:privacy, lat:lat, long:long})
 
       try{
+        
           contact.save();
           res.send("created information")
       }catch (err){
           console.log(err)
       } 
 })
+
 
 serverapp.get('/read', function(req, res){
     contact.find({}, (err, result) =>{
@@ -62,23 +72,31 @@ serverapp.get('/read', function(req, res){
 
 
 
-serverapp.put('/update', function(req, res){
+    serverapp.put('/update', function(req, res){
     const id = req.body.id
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const street = req.body.street
-    const postalcode = req.body.postalcode
+    const plz = req.body.plz
     const city = req.body.city
     const country = req.body.country
+    const owner = req.body.owner
+    const privacy = req.body.privacy
+    const lat = req.body.lat
+    const long = req.body.long
 
       try{
           Contact.findById(id, (err, updatedContact)=> {
               updatedContact.firstname = firstname
               updatedContact.lastname = lastname
               updatedContact.street = street
-              updatedContact.postalcode = postalcode
+              updatedContact.plz = plz
               updatedContact.city = city
               updatedContact.country = country
+              updatedContact.owner = owner
+              updatedContact.privacy = privacy
+              updatedContact.lat = lat
+              updatedContact.long = long
 
               updatedContact.save();
               res.send("update")

@@ -7,6 +7,7 @@ import MyMap from "./Map"
 import { ModalHeader } from "@chakra-ui/modal"
 
 const Normalo_Page = () =>{
+    var type="all"
 
     const  history = useHistory()
     function logout(){
@@ -33,12 +34,12 @@ const Normalo_Page = () =>{
     
     <div className="ButtonsRow" style={rowstyle}>
     <MyModal title ="Add new contact" />
-    <MyButton name = "Show all contacts"/>
-    <MyButton name = "Show my contacts"/>
+    <MyButton name = "Show all contacts" doClickAction={type="all"}/>
+    <MyButton name = "Show my contacts" doClickAction={type="my"}/>
     </div>
     <div className="tableAndMap">
       <div className="myTable">
-        <MyTable />
+        <MyTable from="normalo" type={type} />
       </div>
       <div className="thisMap">
           <MyMap />

@@ -6,7 +6,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Button, FormControl, FormLabel, Input, useDisclosure, Stack, Checkbox
+    Button, FormControl, FormLabel, Input, useDisclosure, Stack, Checkbox, Radio, RadioGroup
   } from "@chakra-ui/react"
   import React, {useState, useEffect} from 'react';
   import Axios from 'axios'
@@ -16,7 +16,7 @@ import {
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [street, setStreet] = useState("")
-    const [postalcode, setPostalcode] = useState("")
+    const [plz, setPlz] = useState("")
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
 
@@ -26,7 +26,7 @@ import {
     useEffect (() =>{
       Axios.get("http://localhost:3001/read").then((Response) => {
         setContactList(Response.data)
-        console.log(Response.data)
+        //console.log(Response.data)
       })
     }, [])
 
@@ -37,7 +37,7 @@ import {
           firstname: firstname,
           lastname: lastname,
           street: street,
-          postalcode: postalcode,
+          plz: plz,
           city: city,
           country: country,
         } )
@@ -81,8 +81,8 @@ import {
               </FormControl>
 
               <FormControl mt={4}>
-                <FormLabel>Postal code</FormLabel>
-                <Input placeholder="Type here to update your postal code" onChange={(event) => {setPostalcode(event.target.value)}} />
+                <FormLabel>PLZ</FormLabel>
+                <Input placeholder="Type here to update your postal code" onChange={(event) => {setPlz(event.target.value)}} />
               </FormControl>
 
               <FormControl mt={4}>
@@ -96,12 +96,27 @@ import {
               </FormControl>
 
               <Stack spacing={20} direction="row">
-              <Checkbox colorScheme="red" defaultIsChecked>
-                Admina
-              </Checkbox>
-              <Checkbox colorScheme="green" defaultIsChecked>
-                private
-              </Checkbox>
+              <RadioGroup defaultValue="2">
+              <Stack spacing={5} direction="column">
+                <Radio colorScheme="blue" value="1">
+                  Admina
+                </Radio>
+                <Radio colorScheme="yellow" value="2">
+                  Normalo
+                </Radio>
+              </Stack>
+            </RadioGroup>
+              
+            <RadioGroup defaultValue="2">
+              <Stack spacing={5} direction="column">
+                <Radio colorScheme="red" value="1">
+                  Private
+                </Radio>
+                <Radio colorScheme="green" value="2">
+                  Public
+                </Radio>
+              </Stack>
+            </RadioGroup>
               </Stack>
             </ModalBody>
   

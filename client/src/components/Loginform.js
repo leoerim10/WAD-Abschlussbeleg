@@ -9,7 +9,7 @@ import {
     Link,
     Heading,
     Text,
-    useColorModeValue,
+    useColorModeValue, Alert, AlertIcon
   } from '@chakra-ui/react';
   import MyButton from './Button';
   import { useHistory } from 'react-router';
