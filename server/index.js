@@ -6,7 +6,8 @@ const contact = require("./models/Contact")
 const Contact = require('./models/Contact')
 const { update } = require('./models/Contact')
 
-
+const user = require("./models/Users")
+const User = require("./models/Users")
 
 const serverapp = express()
 serverapp.use(express.json())
@@ -19,6 +20,7 @@ serverapp.listen(3001, function(){
 mongoose.connect('mongodb+srv://Sameer:Rordofthelings@crud.mgcsw.mongodb.net/contacts45?retryWrites=true&w=majority')
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 
 /* contact.create({ firstname: 'Maxim', lastname: 'Mueller', street:"Berliner Straße", country: "Germany"  }, function (err) {
@@ -39,15 +41,6 @@ serverapp.post('/create', function(req, res){
     const long = req.body.long
     const lat = req.body.lat
 
-  /*   contact.create({ firstname: firstname, lastname: lastname, street:street, housenumber:housenumber, postalcode:postalcode, city:city, country: country}, 
-        function (err) {
-        if (err && err.name === 'ValidationError') {
-            console.error(Object.values(err.errors).map(val => val.message))
-          }
-      })  */
-
-      
-    
      const contact = new Contact({firstname: firstname , lastname: lastname , street:street, plz:plz, city:city, country: country, owner:owner, privacy:privacy, lat:lat, long:long})
 
       try{
@@ -114,5 +107,35 @@ serverapp.delete('/delete/:id', function(req, res){
 
     Contact.findByIdAndRemove(id).exec()
     res.send("deleted")
+
+})
+
+
+serverapp.post('/users', function(req, res){
+    const username = "normalo"
+    const password = "normalo"
+    const isAdmin = false
+   
+
+     const user = new User({username:username, password:password, isAdmin:isAdmin})
+
+      try{
+        
+          user.save();
+          res.send("created information")
+      }catch (err){
+          console.log(err)
+      } 
+})
+
+
+
+serverapp.get('/users', function(req, res){
+    user.find({}, (err, result) =>{
+        if(err){
+            res.send(err)
+        }
+        res.send(result)
+    } )
 
 })

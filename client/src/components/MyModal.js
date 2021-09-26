@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react"
 import React, {useState, useEffect} from 'react';
 import Axios from 'axios'
-import { resolveMotionValue } from "framer-motion";
 
 const api_key= "6d455699c2050234914be8812b928706"
 
@@ -33,27 +32,12 @@ const MyModal = (props) => {
     })
   }, []) */
 
-  const changeState = (value) => {
-   alert(value)
-  }
-
-
   const addContact = () => {
-
-
-    const req_query = street + " " + city + " "+country+"&region=Berlin"
-    let lat = ""
-    let long= ""
 
     const params = {
         access_key: api_key,
         query: street + " " + plz + " " + city + " "+ country
-        
       }
-
-      console.log("------------------------------------------------")
-      
-      
      function saveinDB(){
 
       return new Promise(resolve => {
@@ -66,18 +50,13 @@ const MyModal = (props) => {
             const result = {"lat":latfromreq, "long":longfromreq}
             resolve(result)
         
-        }).catch(error => {
-          console.log(error);
-          return error
-        });
+        }).catch(
+          alert("Error: The address you entered doesnot exist, please try again with valid address.")
+        );
 
       });
 
       }
-
-
-
-
     async function postData() {
       const result =  await saveinDB()
       console.log("from postdata")
@@ -94,11 +73,11 @@ const MyModal = (props) => {
       privacy: privacy,
       lat: result.lat,
       long: result.long
-    } )}
-
+    } )
+    window.location.reload(false)
+  }
     postData()
 
-    //window.location.reload(false);
   }
   
 
@@ -152,11 +131,17 @@ function InitialFocus() {
               </FormControl>
 
               <Stack spacing={20} direction="row">
+              
               <RadioGroup defaultValue="2">
               <Stack spacing={5} direction="column">
-                <Radio colorScheme="blue" value="admina" onChange={(event) => {setOwner(event.target.value)}}>
-                  Admina
-                </Radio>
+                {props.user === "admina"?
+                  <Radio colorScheme="blue" value="admina" onChange={(event) => {setOwner(event.target.value)}}>
+                      Admina
+                  </Radio>
+                  :
+                  <div></div>
+                }
+                
                 <Radio colorScheme="yellow" value="normalo" onChange={(event) => {setOwner(event.target.value)}} >
                   Normalo
                 </Radio>
@@ -177,7 +162,7 @@ function InitialFocus() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={addContact}>
+            <Button colorScheme="blue" mr={3} onClick={addContact}  >
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>

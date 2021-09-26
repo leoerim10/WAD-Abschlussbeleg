@@ -13,7 +13,8 @@ import {
   } from '@chakra-ui/react';
   import MyButton from './Button';
   import { useHistory } from 'react-router';
-  import React, {useState} from 'react';
+  import React, {useState, useEffect} from 'react';
+  import Axios from 'axios'
 
 
 
@@ -22,13 +23,24 @@ import {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const[authenticated, setAuthenticated] = useState(false)
+
+    const [userList, setUserList] = useState([])
+   
+    useEffect (() =>{
+      Axios.get("http://localhost:3001/users").then((Response) => {
+        setUserList(Response.data)
+        console.log(Response.data[0].username)
+      })
+    }, [])
     
 
     
 
     const  history = useHistory()
     function doSth(){
-      if(username === "admina" && password === "admina")
+
+
+      if(username === userList[0].username && password === userList[0].password)
       {
         const location = {
           pathname: '/Admina_Page',
@@ -37,7 +49,7 @@ import {
       setAuthenticated(true)
       history.push(location)
       }
-      else if(username === "normalo" && password === "normalo")
+      else if(username === userList[1].username && password === userList[1].password)
       {
         const location = {
           pathname: '/Normalo_Page',

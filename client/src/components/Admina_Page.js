@@ -4,31 +4,54 @@ import Header2 from "./Header"
 import MyModal from "./MyModal"
 import MyTable from "./MyTable"
 import MyMap from "./Map"
-import { ModalHeader } from "@chakra-ui/modal"
 import { Button } from "@chakra-ui/button"
-
-var res ="all"
-const setPrivacy = (privacy) =>{
-  console.log("current privacy = " + res)
-  if(privacy === "my"){
-    console.log("setting type my")
-    res = "my"
-  }else{
-    res = "all"
-  }
-
-  window.location.reload(false)
-
-}
-
-const Admina_Page = (props) =>{
-
-  var type = "all"
+import { useState } from "react"
+import { useEffect } from "react"
+import Axios from "axios"
 
 
 
+
+
+const Admina_Page = () =>{
 
  
+  const [loginType, setLoginType] = useState("my")
+  const [contactList, setContactList] = useState([])
+  const [contactList2, setContactList2] = useState([])
+
+
+
+  useEffect (() =>{
+    Axios.get("http://localhost:3001/read").then((Response) => {
+     const res = Response.data
+      setContactList(Response.data)
+      setContactList2((Response.data.filter((obj => obj.owner === "admina"))))
+    })
+    }, [])
+
+
+  const showAllContacts = () =>{
+    
+    setLoginType("all")
+    setContactList2(contactList)
+  
+   
+    
+  }
+
+  const showMyContacts = () =>{
+    
+    setLoginType("my")
+    setContactList2((contactList.filter((obj => obj.owner === "admina"))))
+
+   // setMyPrivateContactList( (contactList.filter((obj => obj.owner === "admina" && obj.privacy === "private"))))
+  
+  }
+
+
+
+
 
     const  history = useHistory()
     function logout(){
@@ -56,28 +79,44 @@ const Admina_Page = (props) =>{
     </div>
     
     <div className="ButtonsRow" style={rowstyle}>
-    <MyModal title ="Add new contact" />
-    <Button colorScheme="blue" mr={3} onClick={() => { setPrivacy("all") }}>
+    <MyModal title ="Add new contact" user="admina"/>
+    <Button colorScheme="blue" mr={3} onClick={showAllContacts}  >
               Show All Contacts
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={() => { setPrivacy("my") }}>
-              Show My Contacts
-            </Button>
+    <Button colorScheme="blue" mr={3} onClick={showMyContacts}  >
+        Show My Contacts
+    </Button>
     </div>
-    <div className="tableAndMap">
-      <div className="myTable">
-        
-        <MyTable from="admina" type={res}/>
-      </div>
-      <div className="thisMap">
-          <MyMap />
+
+        {<div>
+          {loginType === "all"?(
+            <div className="tableAndMap">
+              <div className="myTable">
+                <MyTable type="all" user="admina" data={contactList2}/>
+                </div>
+                <div className="thisMap">
+                  <MyMap data={contactList2} />
       
+                </div>
+
+            </div>
+          ): (
+            <div className="tableAndMap">
+            <div className="myTable">
+              <MyTable type="my" user="admina" data={contactList2}/>
+              </div>
+              <div className="thisMap">
+                <MyMap data={contactList2} />
+    
+              </div>
+
+          </div>
+          )
+          }
+        </div>}
       </div>
 
-    </div>
 
-
-    </div>
     
     )
     

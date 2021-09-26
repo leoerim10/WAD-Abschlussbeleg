@@ -5,19 +5,7 @@ import { useState, useEffect } from "react"
 import Axios from "axios"
 import 'leaflet/dist/leaflet.css'
 const MyMap = (props) =>{
-//fetch all data from database
-const [contactList, setContactList] = useState([])
-  useEffect (() =>{
-    Axios.get("http://localhost:3001/read").then((Response) => {
-      setContactList(Response.data)
-    })
-  }, [])
-
-  
 const position = [52.52, 13.405]
-const position2 = [52.521, 13.41]
-const position3 = [52.523, 13.48]
-const position4 = [52.522, 13.45]
 return(
 
 <MapContainer  center={position} zoom={13} scrollWheelZoom={true}>
@@ -26,7 +14,7 @@ return(
   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 />
 
-{contactList.map((val, index) =>{
+{(props.data).map((val, index) =>{
             return <div>
                     <Marker position={[val.lat, val.long]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})} >
                         <Popup>

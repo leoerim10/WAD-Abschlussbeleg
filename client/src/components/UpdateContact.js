@@ -11,6 +11,8 @@ import {
   import React, {useState, useEffect} from 'react';
   import Axios from 'axios'
 
+  const api_key= "6d455699c2050234914be8812b928706"
+
   const UpdateContact = (props) =>{
 
     const [firstname, setFirstname] = useState("")
@@ -19,33 +21,63 @@ import {
     const [plz, setPlz] = useState("")
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
+    const [owner, setOwner] = useState("")
+    const [privacy, setPrivacy] = useState("")
 
 
     const [contactList, setContactList] = useState([])
    
     useEffect (() =>{
       Axios.get("http://localhost:3001/read").then((Response) => {
-        setContactList(Response.data)
-        //console.log(Response.data)
+        setContactList(Response.data)       
       })
     }, [])
 
 
     const updateContact = (id) => {
-        Axios.put("http://localhost:3001/update", {
-            id:id,
-          firstname: firstname,
-          lastname: lastname,
-          street: street,
-          plz: plz,
-          city: city,
-          country: country,
-        } )
-    
-        window.location.reload(false);
-      }
-      
 
+      const params = {
+        access_key: api_key,
+        query: street + " " + plz + " " + city + " "+ country
+      }
+
+      function updateDB(){
+        return new Promise(resolve => {
+         Axios.get('http://api.positionstack.com/v1/forward', {params})
+          .then(response => {
+              const latfromreq = (response.data.data)[0]?.latitude
+              const longfromreq = (response.data.data)[0]?.longitude
+              const result = {"lat":latfromreq, "long":longfromreq}
+              resolve(result)
+          
+          }).catch(
+            alert("Error: The address you entered doesnot exist, please try again with valid address.")
+          )
+        })
+      }
+
+      async function updateData() {
+        const result =  await updateDB()
+
+      Axios.put("http://localhost:3001/update", {
+        id:id,
+      firstname: firstname,
+      lastname: lastname,
+      street: street,
+      plz:plz,
+      city: city,
+      country: country,
+      owner: owner,
+      privacy: privacy,
+      lat: result.lat,
+      long: result.long
+    } )
+    window.location.reload(false)
+  }
+   updateData()
+
+  }
+      
     function InitialFocus() {
     const { isOpen, onOpen, onClose } = useDisclosure()
   
@@ -98,10 +130,10 @@ import {
               <Stack spacing={20} direction="row">
               <RadioGroup defaultValue="2">
               <Stack spacing={5} direction="column">
-                <Radio colorScheme="blue" value="1">
+                <Radio colorScheme="blue" value="admina" onChange={(event) => {setOwner(event.target.value)}}>
                   Admina
                 </Radio>
-                <Radio colorScheme="yellow" value="2">
+                <Radio colorScheme="yellow" value="normalo" onChange={(event) => {setOwner(event.target.value)}} >
                   Normalo
                 </Radio>
               </Stack>
@@ -109,10 +141,10 @@ import {
               
             <RadioGroup defaultValue="2">
               <Stack spacing={5} direction="column">
-                <Radio colorScheme="red" value="1">
+                <Radio colorScheme="red" value="private"onChange={(event) => {setPrivacy(event.target.value)}}>
                   Private
                 </Radio>
-                <Radio colorScheme="green" value="2">
+                <Radio colorScheme="green" value="public" onChange={(event) => {setPrivacy(event.target.value)}}>
                   Public
                 </Radio>
               </Stack>
@@ -122,7 +154,7 @@ import {
   
             <ModalFooter>
               <Button id="testtesttest" colorScheme="blue" mr={3}  onClick={(e)=> updateContact(props.id)} >
-                Save
+                Update
               </Button>
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
