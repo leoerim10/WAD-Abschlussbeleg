@@ -48,19 +48,26 @@ const MyModal = (props) => {
             const longfromreq = (response.data.data)[0]?.longitude
             ///long = response.data[0].longitude
             const result = {"lat":latfromreq, "long":longfromreq}
+            console.log("from inside axios")
+            console.log(result)
             resolve(result)
         
-        }).catch(
+        })/* .catch(
+         
+          //resolve({})
           alert("Error: The address you entered doesnot exist, please try again with valid address.")
-        );
+          
+        ); */
 
       });
 
       }
     async function postData() {
       const result =  await saveinDB()
-      console.log("from postdata")
+      console.log("result from modal")
       console.log(result)
+
+      if(result.lat && result.long){
 
       Axios.post("http://localhost:3001/create", {
       firstname: firstname,
@@ -75,6 +82,9 @@ const MyModal = (props) => {
       long: result.long
     } )
     window.location.reload(false)
+  }else{
+    alert("The address you entered does not exist, please try again.")
+  }
   }
     postData()
 

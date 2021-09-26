@@ -18,7 +18,8 @@ return(
             return <div>
                     <Marker position={[val.lat, val.long]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})} >
                         <Popup>
-                          This is the location of {val.firstname} {val.lastname}.
+                         {val.firstname} {val.lastname} 
+                         
                         </Popup>
                     </Marker>    
             </div>

@@ -36,7 +36,7 @@ import {
                     <Td >{val.firstname + " " + val.lastname}</Td>
                     <Td>{val.street}</Td>
                     
-                    <Td>{<UpdateContact title="Edit" id={val._id}/>}</Td>
+                    <Td>{<UpdateContact user={val.owner} title="Edit" id={val._id} data = {val}/>}</Td>
                     
                     <Td>{ <Button colorScheme="red" mr={3}  onClick={(e)=> deleteContact(val._id)} >
                             Delete

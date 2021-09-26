@@ -45,22 +45,26 @@ import {
         return new Promise(resolve => {
          Axios.get('http://api.positionstack.com/v1/forward', {params})
           .then(response => {
+              
               const latfromreq = (response.data.data)[0]?.latitude
               const longfromreq = (response.data.data)[0]?.longitude
               const result = {"lat":latfromreq, "long":longfromreq}
+              
               resolve(result)
           
-          }).catch(
-            alert("Error: The address you entered doesnot exist, please try again with valid address.")
-          )
+          })
         })
       }
 
       async function updateData() {
+
         const result =  await updateDB()
+        
+
+    if(result.lat && result.long){
 
       Axios.put("http://localhost:3001/update", {
-        id:id,
+      id:id,
       firstname: firstname,
       lastname: lastname,
       street: street,
@@ -73,6 +77,9 @@ import {
       long: result.long
     } )
     window.location.reload(false)
+  }else{
+    alert("The address you entered does not exist, please try again.")
+  }
   }
    updateData()
 
@@ -100,39 +107,43 @@ import {
             <ModalBody pb={6}>
             <FormControl>
                 <FormLabel>First name</FormLabel>
-                <Input placeholder="Type here to update your first name" onChange={(event) => {setFirstname(event.target.value)}} />
+                <Input placeholder={props.data.firstname} onChange={(event) => {setFirstname(event.target.value)}} />
               </FormControl>
   
               <FormControl mt={4}>
                 <FormLabel>Last name</FormLabel>
-                <Input placeholder="Type here to update your last name" onChange={(event) => {setLastname(event.target.value)}} />
+                <Input placeholder={props.data.lastname} onChange={(event) => {setLastname(event.target.value)}} />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Street</FormLabel>
-                <Input placeholder="Type here to update your street" onChange={(event) => {setStreet(event.target.value)}} />
+                <Input placeholder={props.data.street} onChange={(event) => {setStreet(event.target.value)}} />
               </FormControl>
 
               <FormControl mt={4}>
                 <FormLabel>PLZ</FormLabel>
-                <Input placeholder="Type here to update your postal code" onChange={(event) => {setPlz(event.target.value)}} />
+                <Input placeholder={props.data.plz} onChange={(event) => {setPlz(event.target.value)}} />
               </FormControl>
 
               <FormControl mt={4}>
                 <FormLabel>City</FormLabel>
-                <Input placeholder="Type here to update your city" onChange={(event) => {setCity(event.target.value)}} />
+                <Input placeholder={props.data.city} onChange={(event) => {setCity(event.target.value)}} />
               </FormControl>
 
               <FormControl mt={4}>
                 <FormLabel>Country</FormLabel>
-                <Input placeholder="Type here to update your country" onChange={(event) => {setCountry(event.target.value)}} />
+                <Input placeholder={props.data.country} onChange={(event) => {setCountry(event.target.value)}} />
               </FormControl>
 
               <Stack spacing={20} direction="row">
               <RadioGroup defaultValue="2">
               <Stack spacing={5} direction="column">
-                <Radio colorScheme="blue" value="admina" onChange={(event) => {setOwner(event.target.value)}}>
-                  Admina
-                </Radio>
+              {props.user === "admina"?
+                  <Radio colorScheme="blue" value="admina" onChange={(event) => {setOwner(event.target.value)}}>
+                      Admina
+                  </Radio>
+                  :
+                  <div></div>
+                }
                 <Radio colorScheme="yellow" value="normalo" onChange={(event) => {setOwner(event.target.value)}} >
                   Normalo
                 </Radio>
